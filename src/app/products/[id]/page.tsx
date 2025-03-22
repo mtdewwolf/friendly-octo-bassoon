@@ -52,12 +52,9 @@ async function getProduct(id: string) {
   return sampleProducts[id as keyof typeof sampleProducts] || null;
 }
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { id: string } 
-}): Promise<Metadata> {
-  const { id } = params;
+// Skip explicit type annotations for Next.js page props
+export async function generateMetadata(props: any): Promise<Metadata> {
+  const id = props.params.id;
   const product = await getProduct(id);
   
   return {
@@ -66,12 +63,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductDetailPage({ 
-  params 
-}: { 
-  params: { id: string } 
-}) {
-  const { id } = params;
+// Skip explicit type annotations for Next.js page props
+export default async function ProductDetailPage(props: any) {
+  const id = props.params.id;
   const product = await getProduct(id);
   
   if (!product) {
