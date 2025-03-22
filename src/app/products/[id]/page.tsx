@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 import ProductActions from '@/components/ProductActions';
+import { Metadata } from 'next';
 
 // Sample product data - in a real app, this would come from your database
 const sampleProducts = {
@@ -42,7 +43,22 @@ const sampleProducts = {
 // This would come from auth context in a client component
 const isWholesale = false;
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = params;
+  const product = sampleProducts[id as keyof typeof sampleProducts];
+  
+  return {
+    title: product ? `${product.name} | YourBrand` : 'Product Not Found | YourBrand',
+    description: product?.description || 'Product not found',
+  };
+}
+
+export default function ProductDetailPage({ params }: Props) {
   const { id } = params;
   const product = sampleProducts[id as keyof typeof sampleProducts];
   
