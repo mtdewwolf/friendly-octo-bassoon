@@ -53,6 +53,7 @@ async function getProduct(id: string) {
 }
 
 // Skip explicit type annotations for Next.js page props
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function generateMetadata(props: any): Promise<Metadata> {
   const id = props.params.id;
   const product = await getProduct(id);
@@ -64,6 +65,7 @@ export async function generateMetadata(props: any): Promise<Metadata> {
 }
 
 // Skip explicit type annotations for Next.js page props
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function ProductDetailPage(props: any) {
   const id = props.params.id;
   const product = await getProduct(id);
