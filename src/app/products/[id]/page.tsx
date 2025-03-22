@@ -43,14 +43,22 @@ const sampleProducts = {
 // This would come from auth context in a client component
 const isWholesale = false;
 
-type Props = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+interface ProductPageParams {
+  id: string;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+// Simulate data fetching from a database
+async function getProduct(id: string) {
+  // In a real app, this would be a database call
+  // We're simulating async behavior with a timeout
+  await new Promise(resolve => setTimeout(resolve, 10));
+  
+  return sampleProducts[id as keyof typeof sampleProducts] || null;
+}
+
+export async function generateMetadata({ params }: { params: ProductPageParams }): Promise<Metadata> {
   const { id } = params;
-  const product = sampleProducts[id as keyof typeof sampleProducts];
+  const product = await getProduct(id);
   
   return {
     title: product ? `${product.name} | YourBrand` : 'Product Not Found | YourBrand',
@@ -58,9 +66,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ProductDetailPage({ params }: Props) {
+export default async function ProductDetailPage({ params }: { params: ProductPageParams }) {
   const { id } = params;
-  const product = sampleProducts[id as keyof typeof sampleProducts];
+  const product = await getProduct(id);
   
   if (!product) {
     return (
