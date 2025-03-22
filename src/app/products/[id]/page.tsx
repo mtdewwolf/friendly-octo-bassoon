@@ -41,7 +41,11 @@ const sampleProducts = {
   },
 };
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
+type ProductParams = {
+  id: string;
+}
+
+export default function ProductDetailPage({ params }: { params: ProductParams }) {
   const { id } = params;
   const product = sampleProducts[id as keyof typeof sampleProducts];
   
