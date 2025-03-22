@@ -23,9 +23,6 @@ export default function ProductCard({
   imageUrl,
   isWholesale = false,
 }: ProductCardProps) {
-  // This would come from your auth context in a real app
-  const isLoggedIn = false;
-  
   // Handle add to cart
   const handleAddToCart = () => {
     // This would integrate with your cart functionality

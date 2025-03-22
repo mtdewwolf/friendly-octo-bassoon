@@ -29,7 +29,8 @@ const initialCart = {
 
 export default function CartPage() {
   const [cart, setCart] = useState(initialCart);
-  const [isWholesale, setIsWholesale] = useState(false); // This would come from auth context
+  // This would be replaced with actual auth context data
+  const isWholesale = false;
   
   // Calculate cart totals
   const subtotal = cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
