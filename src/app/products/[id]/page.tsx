@@ -43,10 +43,6 @@ const sampleProducts = {
 // This would come from auth context in a client component
 const isWholesale = false;
 
-interface ProductPageParams {
-  id: string;
-}
-
 // Simulate data fetching from a database
 async function getProduct(id: string) {
   // In a real app, this would be a database call
@@ -56,7 +52,11 @@ async function getProduct(id: string) {
   return sampleProducts[id as keyof typeof sampleProducts] || null;
 }
 
-export async function generateMetadata({ params }: { params: ProductPageParams }): Promise<Metadata> {
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: { id: string } 
+}): Promise<Metadata> {
   const { id } = params;
   const product = await getProduct(id);
   
@@ -66,7 +66,11 @@ export async function generateMetadata({ params }: { params: ProductPageParams }
   };
 }
 
-export default async function ProductDetailPage({ params }: { params: ProductPageParams }) {
+export default async function ProductDetailPage({ 
+  params 
+}: { 
+  params: { id: string } 
+}) {
   const { id } = params;
   const product = await getProduct(id);
   
